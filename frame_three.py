@@ -69,11 +69,11 @@ class FrameThree(Scene):
 
         self.wait()
 
-        u_box = SurroundingRectangle(u_group, corner_radius=0.2, color=GREEN, buff=SMALL_BUFF)
-        self.play(Create(u_box))
+        u_box_cond = SurroundingRectangle(u_group, corner_radius=0.2, color=GREEN, buff=SMALL_BUFF)
+        self.play(Create(u_box_cond))
 
-        v_box = SurroundingRectangle(v_group, corner_radius=0.2, color=YELLOW, buff=SMALL_BUFF)
-        self.play(Create(v_box))
+        v_box_cond = SurroundingRectangle(v_group, corner_radius=0.2, color=YELLOW, buff=SMALL_BUFF)
+        self.play(Create(v_box_cond))
         self.wait()
 
         # U matrix
@@ -201,8 +201,9 @@ class FrameThree(Scene):
         self.play(Transform(v_group_second, v_final))
 
         self.wait()
-        self.remove(u_group_second,u_final, v_group_second)
+        self.remove(u_group_second, u_final, v_group_second)
         self.play(v_final.animate.to_edge(DL))
+        self.play(FadeOut(u_box_cond))
 
         invisible = Rectangle().next_to(v_final, direction=UP, buff=MED_LARGE_BUFF)
 
@@ -250,3 +251,75 @@ class FrameThree(Scene):
         v_r_3[0].set_color(ORANGE)
 
         self.wait()
+
+        g = Group(equation, eq_group, rectangle)
+        self.play(FadeOut(g))
+        self.wait()
+
+        v_r_1 = MathTex("1")
+        v_r_2 = MathTex("2").next_to(v_r_1, direction=DOWN, buff=MED_LARGE_BUFF)
+        v_r_3 = MathTex("3").next_to(v_r_2, direction=DOWN, buff=MED_LARGE_BUFF)
+        v_r_group = Group(v_r_1, v_r_2, v_r_3).to_corner(DL, buff=LARGE_BUFF)
+
+        v_matrix = Matrix([
+            [r"0 \qquad", "v_2(1)", "0"], 
+            [r"1 \qquad", "v_2(2)", "-1"], 
+            [r"0 \qquad", "v_2(3)", "1"]]
+        ).next_to(v_r_group, direction=RIGHT)
+        v_column = MathTex("\quad a_0 \qquad a_1 \qquad 1 \quad").next_to(v_matrix, direction=UP, buff=MED_SMALL_BUFF)
+        v_group_new = Group(v_r_group, v_matrix, v_column)
+        v_matrix_box_new = SurroundingRectangle(v_group_new, corner_radius=0.2, color=YELLOW, buff=MED_SMALL_BUFF)
+        self.play(ReplacementTransform(v_matrix_box, v_matrix_box_new))
+        self.play(ReplacementTransform(v_group, v_group_new))
+        self.wait()
+
+        v_r_1 = MathTex("1")
+        v_r_2 = MathTex("2").next_to(v_r_1, direction=DOWN, buff=MED_LARGE_BUFF)
+        v_r_3 = MathTex("3").next_to(v_r_2, direction=DOWN, buff=MED_LARGE_BUFF)
+        v_r_group = Group(v_r_1, v_r_2, v_r_3).to_corner(DL, buff=LARGE_BUFF)
+
+        v_matrix_final = Matrix([
+            ["v_1(1)", "v_2(1)", "v_3(1)"], 
+            ["v_1(2)", "v_2(2)", "v_3(2)"], 
+            ["v_1(3)", "v_2(3)", "v_3(3)"]]
+        ).next_to(v_r_group, direction=RIGHT)
+        v_column = MathTex("\qquad a_0 \qquad a_1 \qquad 1 \quad").next_to(v_matrix, direction=UP, buff=MED_SMALL_BUFF)
+        v_group_final = Group(v_r_group, v_matrix_final, v_column)
+        v_matrix_box_final = SurroundingRectangle(v_group_final, corner_radius=0.2, color=YELLOW, buff=MED_SMALL_BUFF)
+        self.play(ReplacementTransform(v_matrix_box_new, v_matrix_box_final))
+        self.play(ReplacementTransform(v_group_new, v_group_final))
+        self.wait()
+
+        g = Group(v_matrix_box_final, v_group_final)
+        g.shift(UP * 1.1)
+        self.wait()
+
+        eq_1 = MathTex(
+            r"v_1(x) = -1x^2 + 4x -3"
+        )
+        eq_2 = MathTex(
+            r"v_2(x) = 1x^2 - 4x + 4",
+        ).next_to(eq_1, direction=DOWN)
+        eq_3 = MathTex(
+            r"v_3(x) = \frac{1}{2}x^2 - \frac{5}{2}x + 2",
+        ).next_to(eq_2, direction=DOWN)
+        eq_group = Group(eq_1, eq_2, eq_3).next_to(v_matrix_box_new, direction=RIGHT).shift(UP)
+        self.play(FadeIn(eq_group))
+        self.wait()
+
+        final_v_eq = MathTex(
+            r"Va(x) = a_0 \cdot v_1(x) + a_1 \cdot v_2(x) + 1 \cdot v_3(x)"
+        ).to_edge(DOWN).set_color(YELLOW).shift(UP * 0.3)
+        self.play(Write(final_v_eq))
+        self.wait()
+
+        self.play(FadeIn(u_box_cond))
+        self.wait()
+
+        final_u_eq = MathTex(
+            r"Ua(x) = a_0 \cdot u_1(x) + a_1 \cdot u_2(x) + 1 \cdot u_3(x)"
+        ).next_to(final_v_eq, direction=DOWN).set_color(GREEN)
+        self.play(Write(final_u_eq))
+        self.wait()
+
+
