@@ -1,6 +1,7 @@
 # Simple SNARK
 
-[**ETHBerlin2024 (First Cut, Note: Edit technically finished +1h after deadline)**](https://youtu.be/A-Z9ON1sgVQ)
+[**ETHBerlin2024 (First Cut, Note: Edit technically finished +1h after deadline)**](https://www.youtube.com/watch?v=frhqebceww8)
+
 
 
 This repo contains a collection of scripts and files related to the _How SNARKs Compress Infinite
