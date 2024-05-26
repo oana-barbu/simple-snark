@@ -68,7 +68,11 @@ def main():
     print(f'Ua:\n{Ua}')
     print(f'Va:\n{Va}')
 
-    print(f'Ua*Va:\n{Ua * Va}')
+    Wa = Ua * Va
+
+    print(f'Ua*Va:\n{Wa}')
+    tau = Wa(33)
+    print([Wa(1), Wa(2), Wa(3), Wa(tau), Ua(tau) * Va(tau)])
 
     tx = poly1d(indices, True)
     print(f't(x):\n{tx}')
