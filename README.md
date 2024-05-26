@@ -1,5 +1,8 @@
 # Simple SNARK
 
+[**ETHBerlin2024 (First Cut, Note: Edit technically finished +1h after deadline)**](https://youtu.be/A-Z9ON1sgVQ)
+
+
 This repo contains a collection of scripts and files related to the _How SNARKs Compress Infinite
 Computation Video_.
 
